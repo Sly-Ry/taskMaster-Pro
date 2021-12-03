@@ -73,6 +73,7 @@ var auditTask = function (taskEl) {
   else if (Math.abs(moment().diff(time, "days")) <= 2) {
     $(taskEl).addClass("list-group-item-warning");
   }
+  console.log(taskEl);
 };
 
 $(".list-group").on("click", "p", function() {
@@ -305,6 +306,14 @@ $("#remove-tasks").on("click", function() {
   console.log(tasks)
   saveTasks();
 });
+
+setInterval(function() {
+  // loop tasks with defined classes and check the due date of each one.
+  $(".card .list-group-item").each(function(index, el) {
+    // pass them through auditTask() func
+    auditTask(el);
+  });
+}, (1000 * 60) * 30);
 
 // load tasks for the first time
 loadTasks();
